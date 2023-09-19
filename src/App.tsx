@@ -81,6 +81,8 @@ function App() {
     init();
   }, []);
 
+  useEffect(() => {}, [loggedIn]);
+
   const login = async () => {
     if (!web3auth) {
       uiConsole('web3auth not initialized yet');
@@ -88,6 +90,7 @@ function App() {
     }
     const web3authProvider = await web3auth.connect();
     setProvider(web3authProvider);
+    setLoggedIn(true);
   };
 
   const addChain = async () => {
@@ -247,11 +250,6 @@ function App() {
           </button>
         </div>
         <div>
-          <button onClick={getPrivateKey} className='card'>
-            Get Private Key
-          </button>
-        </div>
-        <div>
           <button onClick={logout} className='card'>
             Log Out
           </button>
@@ -279,16 +277,6 @@ function App() {
       </h1>
 
       <div className='grid'>{loggedIn ? loggedInView : unloggedInView}</div>
-
-      <footer className='footer'>
-        <a
-          href='https://github.com/Web3Auth/examples/tree/main/web-modal-sdk/solana/react-solana-modal-example'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Source code
-        </a>
-      </footer>
     </div>
   );
 }
